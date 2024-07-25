@@ -12,7 +12,7 @@ type Config struct {
 	Path string
 }
 
-func (c *Config) Get(decodeFileFunc func(string)) error {
+func (c *Config) Get(decodeFileCallback func(env string, filePath string)) error {
 	var err error
 	var files []os.DirEntry
 	//获取配置文件
@@ -26,7 +26,7 @@ func (c *Config) Get(decodeFileFunc func(string)) error {
 				if filePath, err = filepath.Abs(filePath); err != nil {
 					return err
 				} else {
-					decodeFileFunc(filePath)
+					decodeFileCallback(c.Env, filePath)
 				}
 			}
 		}
