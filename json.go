@@ -15,14 +15,14 @@ type Json struct {
 
 var jsonHandler = jsoniter.ConfigCompatibleWithStandardLibrary
 
-func (j *Json) Get(config any) (any, error) {
+func (j *Json) Get(config any) error {
 	var err error
 	var dirEntries []os.DirEntry
 	var file *os.File
 	var content []byte
 	//获取配置文件
 	if dirEntries, err = os.ReadDir(j.Path); err != nil {
-		return nil, err
+		return err
 	}
 
 	for _, dirEntry := range dirEntries {
@@ -31,14 +31,14 @@ func (j *Json) Get(config any) (any, error) {
 		if filepath.Ext(fileName) == ".json" {
 			// 打开 JSON 文件
 			if file, err = os.Open(filePath); err != nil {
-				return nil, err
+				return err
 			}
 			if err = readAndProcessFile(file, &content, &config); err != nil {
-				return nil, err
+				return err
 			}
 		}
 	}
-	return config, nil
+	return nil
 }
 
 func readAndProcessFile(file *os.File, content *[]byte, config any) error {
