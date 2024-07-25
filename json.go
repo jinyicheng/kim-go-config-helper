@@ -33,7 +33,7 @@ func (j *Json) Get(config any) error {
 			if file, err = os.Open(filePath); err != nil {
 				return err
 			}
-			if err = readAndProcessFile(file, &content, &config); err != nil {
+			if err = readAndProcessFile(file, &content, config); err != nil {
 				return err
 			}
 		}
@@ -53,7 +53,7 @@ func readAndProcessFile(file *os.File, content *[]byte, config any) error {
 	if *content, err = io.ReadAll(file); err != nil {
 		return err
 	}
-	if err = jsonHandler.Unmarshal(*content, &config); err != nil {
+	if err = jsonHandler.Unmarshal(*content, config); err != nil {
 		return err
 	}
 	return nil

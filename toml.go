@@ -22,7 +22,7 @@ func (t *Toml) Get(config any) error {
 			filePath := filepath.Join(t.Path, dirEntry.Name())
 			fileName := filepath.Base(filePath)
 			if filepath.Ext(fileName) == ".toml" {
-				if _, err = tomlHandler.DecodeFile(filePath, &config); err != nil {
+				if _, err = tomlHandler.DecodeFile(filePath, config); err != nil {
 					return err
 				}
 			}
